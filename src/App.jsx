@@ -5,8 +5,8 @@ import { getApiConfiguration } from "./features/homeSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/home/Home";
-import Header from "./components/Header/Header";
-import Footer from "./components/Footer/Footer";
+import Header from "./components/header/Header";
+import Footer from "./components/footer/Footer";
 import Explore from "./pages/explore/Explore";
 import Details from "./pages/details/Details";
 import PageNotFound from "./pages/404/PageNotFound";
@@ -24,7 +24,12 @@ function App() {
   const fetchApiConfig = () => {
     fetchDataFromApi("/configuration").then((res) => {
       console.log(res);
-      dispatch(getApiConfiguration(res));
+      const url = {
+        backdrop: res.images.secure_base_url + "original",
+        poster: res.images.secure_base_url + "original",
+        profile: res.images.secure_base_url + "original",
+      };
+      dispatch(getApiConfiguration(url));
     });
   };
 
