@@ -1,14 +1,24 @@
-import { useState } from 'react'
-
-import './App.css'
+import { useEffect } from "react";
+import { fetchDataFromApi } from "./utils/api";
+import { getApiConfiguration } from "./features/homeSlice";
+import { useSelector, useDispatch } from "react-redux";
 
 function App() {
+  const dispatch = useDispatch();
+  const url = useSelector((state) => state.home.url);
+  console.log(url);
 
-  return (
-    <div className='App'>
-      App
-    </div>
-  )
+  useEffect(() => {
+    apiTest();
+  }, []);
+
+  const apiTest = () => {
+    fetchDataFromApi("/movie/popular").then((res) => {
+      // console.log(res);
+      dispatch(getApiConfiguration(res));
+    });
+  };
+  return <div className="App">{url?.total_pages}</div>;
 }
 
-export default App
+export default App;
