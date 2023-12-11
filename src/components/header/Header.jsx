@@ -22,6 +22,8 @@ const Header = () => {
   console.log(location);
 
   //here we use USELOCATION because in react when route changes pages not render so when you are in middle of page and we hit another route toh aapka cursor usi jgh rahega so this is used to reset your cursor location
+  //if we not use useEffect to setLoaction then it gives error that too many rerenders cause
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location]);
@@ -38,7 +40,8 @@ const Header = () => {
     } else {
       setShow("top");
     }
-    setLastScrollY(window.scrollY);
+    setLastScrollY(window.scrollY); //it is used to reset lastScrollY Positon
+    // console.log(lastScrollY);
   };
 
   useEffect(() => {
