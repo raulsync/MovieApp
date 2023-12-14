@@ -7,6 +7,7 @@ const SwitchTabs = ({ data, onTabChange }) => {
   const [selectedTab, setSelectedTab] = useState(0);
   const [left, setLeft] = useState(0);
 
+  ///tab change on the basis of indexing of array like day/week
   const activeTab = (tab, index) => {
     setLeft(index * 100);
     setTimeout(() => {
