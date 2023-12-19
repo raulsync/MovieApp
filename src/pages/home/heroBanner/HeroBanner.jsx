@@ -16,6 +16,7 @@ const HeroBanner = () => {
 
   const { url } = useSelector((state) => state.home);
 
+  //to set background url from movie api
   useEffect(() => {
     const bg =
       url.backdrop +
@@ -23,6 +24,7 @@ const HeroBanner = () => {
     setBackground(bg);
   }, [data]);
 
+  //code for handle SeacrhInput
   const searchQueryHandler = (event) => {
     console.log(event);
     if (event.key === "Enter" && query.length > 0) {

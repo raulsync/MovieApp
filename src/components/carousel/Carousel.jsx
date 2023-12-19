@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import React, { useRef } from "react";
 import {
@@ -16,7 +17,7 @@ import CircleRating from "../circleRating/CircleRating";
 import "./style.scss";
 import Genres from "../genres/Genres";
 
-const Carousel = ({ data, loading }) => {
+const Carousel = ({ data, loading, endPoint, title }) => {
   const { url } = useSelector((state) => state.home); //url from store
 
   const navigate = useNavigate();
@@ -53,6 +54,7 @@ const Carousel = ({ data, loading }) => {
 
   return (
     <div className="carousel">
+      {title && <div className="carouselTitle">{title}</div>}
       <ContentWrapper>
         <BsFillArrowLeftCircleFill
           className="carouselLeftNav arrow"
@@ -73,7 +75,7 @@ const Carousel = ({ data, loading }) => {
                   key={item.id}
                   className="carouselItem"
                   onClick={() => {
-                    navigate(`/${item.media_type}/${item.id}`);
+                    navigate(`/${item.media_type || endPoint}/${item.id}`);
                   }}
                 >
                   <div className="posterBlock">

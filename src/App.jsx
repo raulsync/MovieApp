@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { useEffect } from "react";
 import { fetchDataFromApi } from "./utils/api";
-import { getApiConfiguration } from "./features/homeSlice";
+import { getApiConfiguration, getGenres } from "./features/homeSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/home/Home";
@@ -19,11 +19,12 @@ function App() {
 
   useEffect(() => {
     fetchApiConfig();
+    genresCall();
   }, []);
 
   const fetchApiConfig = () => {
     fetchDataFromApi("/configuration").then((res) => {
-      console.log(res);
+      // console.log(res);
       const url = {
         backdrop: res.images.secure_base_url + "original",
         poster: res.images.secure_base_url + "original",
@@ -33,9 +34,31 @@ function App() {
     });
   };
 
+  const genresCall = async () => {
+    const promises = [];
+    const endPoints = ["tv", "movie"];
+    const allGenres = {};
+
+    endPoints.forEach((url) => {
+      //here we push our endpoints in promises
+      promises.push(fetchDataFromApi(`/genre/${url}/list`));
+    });
+    //promise.all is used here to check that all the response of both api call comes at once
+    //promise.all uss case me ham use krte hn jaha hme jaha hme 2-3 api ka response same time pe chaiye hota hai
+    const data = await Promise.all(promises);
+    console.log(data);
+    //here we got data and inside data we have get our result so we map over data to get individual result
+
+    data.map(({ genres }) => {
+      return genres.map((item) => (allGenres[item.id] = item));
+    });
+
+    dispatch(getGenres(allGenres));
+    console.log(allGenres);
+  };
   return (
     <BrowserRouter>
-      {/* <Header /> */}
+      <Header />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/:mediaType/:id" element={<Details />} />
@@ -43,7 +66,7 @@ function App() {
         <Route path="/explore/:mediaType" element={<Explore />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
-      {/* <Footer /> */}
+      <Footer />
     </BrowserRouter>
   );
 }
