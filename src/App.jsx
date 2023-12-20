@@ -50,7 +50,7 @@ function App() {
     //here we got data and inside data we have get our result so we map over data to get individual result
 
     data.map(({ genres }) => {
-      return genres.map((item) => (allGenres[item.id] = item));
+      return genres?.map((item) => (allGenres[item?.id] = item));
     });
 
     dispatch(getGenres(allGenres));
