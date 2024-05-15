@@ -28,7 +28,11 @@ const Carousel = ({ data, loading, endPoint, title }) => {
   const navigation = (direction) => {
     //isse main div ko pkd rae n hmlg
     const container = carouselContainer.current;
+
+    //the value of this depends on the direction
+
     const scrollAmount =
+      //
       direction === "left"
         ? container.scrollLeft - (container.offsetWidth + 20)
         : container.scrollLeft + (container.offsetWidth + 20);

@@ -36,8 +36,10 @@ const Explore = () => {
   const [sortby, setSortby] = useState(null);
   const { mediaType } = useParams();
 
+  //fetch api to get the genres data
   const { data: genresData } = useFetch(`/genre/${mediaType}/list`);
 
+  //to get the intial data of the discover page
   const fetchInitialData = () => {
     setLoading(true);
     fetchDataFromApi(`/discover/${mediaType}`, filters).then((res) => {

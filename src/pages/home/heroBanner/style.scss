@@ -1,4 +1,4 @@
-@import "../../../mixins.scss";
+@import '../../../mixins.scss';
 
 .heroBanner {
   width: 100%;
@@ -33,7 +33,11 @@
   .opacity-layer {
     width: 100%;
     height: 250px;
-    background: linear-gradient(180deg, rgba(4, 21, 45, 0) 0%, #04152d 79.17%);
+    background: linear-gradient(
+      180deg,
+      rgba(187, 194, 204, 0) 0%,
+      #97a1af 79.17%
+    );
     position: absolute;
     bottom: 0;
     left: 0;
